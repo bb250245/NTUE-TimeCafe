@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<table width="100%">
+    <thead>
+        <tr>
+            <img src="../static/images/bg.png" alt="cake" class="mw-100">
+        </tr>
+        <tr>
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../static/images/slide_1.png" class="d-block w-100" alt="slide_1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../static/images/slide_2.png" class="d-block w-100" alt="slide_2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../static/images/slide_3.png" class="d-block w-100" alt="slide_3">
+                      </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden"></span>
+                </button>
+            </div>
+        </tr>
+        <tr>
+            <th width="50%">
+                <img src="../static/images/cake.jpeg" alt="cake" class="mw-100">
+            </th>
+            <th style="text-align: center;">
+                <div style="display: inline-block; text-align: left;">
+                    <font face="Playfair Display Bold" size="7">MENU.</font>
+                    <p>甜點、咖啡及各式飲品</p>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark">See More</button>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th style="text-align: center;">
+                <div style="display: inline-block; text-align: left;">
+                    <font face="Playfair Display Bold" size="7">ONLINE ORDER.</font>
+                    <p>線上點餐 外帶不用等</p>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark">See More</button>
+                </div>
+            </th>
+            <th width="50%">
+                <img src="../static/images/coffee.jpg" alt="coffee" class="mw-100">
+            </th>
+        </tr>
+        <tr>
+            <th width="50%">
+                <img src="../static/images/table.jpg" alt="table" class="mw-100">
+            </th>
+            <th style="text-align: center;">
+                <div style="display: inline-block; text-align: left;">
+                    <font face="Playfair Display Bold" size="7">ABOUT US.</font>
+                    <p>Time Café相關資訊</p>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark">See More</button>
+                </div>
+            </th>
+        </tr>
+    </thead>
+</table>
+{% endblock %}
