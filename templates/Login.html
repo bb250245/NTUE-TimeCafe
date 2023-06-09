@@ -1,4 +1,34 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<br>
+<br>
+<br>
+<div align="center">
+    <font face="Playfair Display Bold" size="7">LOGIN.</font>
+    <br><br>
+    <form action="." method="POST" name="form1">
+		{% csrf_token %}
+		{% if status == "login" %}
+			<div><a href="/logout/">登出系統</a></div>
+		{% else %}
+		<table width="100%">
+			<tr>
+				<td width="40%" align="right">帳號：</td><td><input type="text" name="username" /></td>
+			</tr>
+            <th><p></p></th>
+			<tr>
+				<td width="40%" align="right">密碼：</td><td><input type="password" name="password" autocomplete="off"/></td>
+			</tr>
+            <th><p></p></th>
+            
+		</table>
+
+			<div><input type="submit" class="btn btn-outline-primary" id="button" value="登入" />
+			<a href = "/register/"><input type="button" class="btn btn-outline-dark"value="註冊"></button></a></div>
+		{% endif %} 
+        
+		<span style="color:red">{{mess}}</span><br><br>
+	</form>
+</div>
 {% endblock %}

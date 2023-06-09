@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div align="center">
+    <font face="Playfair Display Bold" size="7">REGISTER.</font>
+	<br><br>
+<!-- 製作表單-->
+<form action="." method="POST" name="form1">
+	{% csrf_token %}
+	<table width="100%">
+		<tr>
+			<td width="40%" align="right">帳號：</td><td><input type="text" name="username" /></td>
+		</tr>
+		<th><p></p></th>
+		<tr>
+			<td width="40%" align="right">密碼：</td><td><input type="password" name="password" autocomplete="off"/></td>
+		</tr>
+		<th><p></p></th>
+		<tr>
+			<td width="40%" align="right">E-mail：</td><td><input type="text" name="email" /></td>
+		</tr>
+		<th><p></p></th>
+		<tr>
+			<td width="40%" align="right">First name：</td><td><input type="text" name="first_name" /></td>
+		</tr>
+		<th><p></p></th>
+		<tr>
+			<td width="40%" align="right">Last name：</td><td><input type="text" name="last_name" /></td>
+		</tr>
+		<th><p></p></th>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" class="btn btn-primary" name="button" id="button" value="送出" />
+				<input type="reset" class="btn btn-light"name="button2" id="button2" value="重設" />
+				<a href = "/login/"><input type="button" class="btn btn-dark"value="返回登入"></button></a></div>
+			</td>
+		</tr>
+	</table>
+	<br>
+		<span style="color:red">{{mess}}</span>
+	
+</form>
+</div>
+{% endblock %}

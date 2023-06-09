@@ -19,8 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-from myapp.views import home, menu, aboutUs, Login
+from myapp.views import home, menu, aboutUs
 from product import views as pviews
+from CookieSessionApp import views as csviews
 #from cart import views as cviews
 
 urlpatterns = [
@@ -28,11 +29,33 @@ urlpatterns = [
     path('',home),
     path('menu/',menu),
     path('aboutUs/',aboutUs),
-    path('Order/',pviews.product),
-    path('Order/<slug:slug>/', pviews.detail, name='detail'),
-    path('Login/',Login),
+    path('order/',pviews.product),
+    path('order/<slug:slug>/', pviews.detail, name='detail'),
     #path('cart/', include(('cart.urls','cart'), namespace='cart')),
     #path('addcart/<int:product_id>/', cviews.AddCartView.as_view(), name='add_cart'),
     #path('deletecart/<int:product_id>/', cviews.DeleteCartView.as_view(), name='delete_cart'),
     
+    # cookies
+    path('set_cookie/<str:key>/<str:value>/', csviews.set_cookie),
+    path('set_cookie2/<str:key>/<str:value>/', csviews.set_cookie2),
+    path('get_cookie/<str:key>/', csviews.get_cookie),
+    path('get_allcookies/', csviews.get_allcookies),
+    path('delete_cookie/<str:key>/', csviews.delete_cookie),
+    path('pagecount/', csviews.pagecount),
+    # sessions
+    path('set_session/<str:key>/<str:value>/', csviews.set_session),
+    path('get_session/<str:key>/', csviews.get_session),
+    path('get_allsessions/', csviews.get_allsessions),
+    # vote
+    path('vote/', csviews.vote),    
+    path('set_session2/<str:key>/<str:value>/', csviews.set_session2),
+    path('delete_session/<str:key>/', csviews.delete_session),
+    # login
+    path('login/', csviews.login),  
+    path('logout/', csviews.logout),
+
+    path('mypage/', csviews.mypage),
+    path('adduser/', csviews.adduser),
+    path('register/', csviews.register),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'product',
-    #'cart'
+    #'cart',
+    'CookieSessionApp',
 ]
 
 MIDDLEWARE = [

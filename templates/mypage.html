@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}我的首頁{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div align="center">
+    <font face="Playfair Display Bold" size="7">會員中心.</font>
+    <br>
+
+    {% if request.user.is_authenticated %}
+    	歡迎光臨:{{name}}
+        <p></p>
+        <p><a href="/logout/">登出</a></p>
+    {% else %}
+        <p>您尚未登入喔~</p>
+        <a href="/login/">登入</a>
+        <a href="/register/">註冊</a>
+    {% endif %}
+    <span style="color:red">{{mess}}</span>
+</div>   
+{% endblock %}
