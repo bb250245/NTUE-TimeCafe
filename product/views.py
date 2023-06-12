@@ -1,5 +1,8 @@
+import base64
+import pickle
 from itertools import product
 from django.shortcuts import render, get_object_or_404
+
 from product.models import Product
 # Create your views here.
 def product(request):
@@ -10,8 +13,9 @@ def product(request):
  elif q is not None:
     product = Product.objects.filter(title__contains=q)
 
- return render(request, 'Order.html', {'product': product })
+ return render(request, 'order.html', {'product': product })
 
-def detail(request, id=None):
-   product = get_object_or_404(Product, id=id)
-   return render(request, 'detail.html', locals())
+def detail(request, slug=None):
+ product = get_object_or_404(Product, slug=slug)
+ return render(request, 'detail.html', locals())
+

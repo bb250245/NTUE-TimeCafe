@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import re_path as url
 
 
 from myapp.views import home, menu, aboutUs
 from product import views as pviews
 from CookieSessionApp import views as csviews
-#from cart import views as cviews
+from cart import views as cviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,10 +32,8 @@ urlpatterns = [
     path('aboutUs/',aboutUs),
     path('order/',pviews.product),
     path('order/<slug:slug>/', pviews.detail, name='detail'),
-    #path('cart/', include(('cart.urls','cart'), namespace='cart')),
-    #path('addcart/<int:product_id>/', cviews.AddCartView.as_view(), name='add_cart'),
-    #path('deletecart/<int:product_id>/', cviews.DeleteCartView.as_view(), name='delete_cart'),
-    
+    path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
+
     # cookies
     path('set_cookie/<str:key>/<str:value>/', csviews.set_cookie),
     path('set_cookie2/<str:key>/<str:value>/', csviews.set_cookie2),

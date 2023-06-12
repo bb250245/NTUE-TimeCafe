@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}顯示商品資料{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div align="center">
+    <font face="Playfair Display Bold" size="7">DETAILS.</font>
+    <br><hr><br>
+    <table width="80%">
+        <tr>
+            <th width="50%">
+                <div class="card-body">
+                    <h3 class="card-title" style="color:#ff7b00;">{{ product.title }}</h3>
+                    <div align="justify">
+                        <div class="card-text">{{ product.description }}</div>
+                    </div>
+            </th>
+            <th width="30%" rowspan="3">
+                <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="card-body">售價：120元</th></tr>
+        <tr>
+            <th>
+                <div class="card-body">
+                <a onclick="add_carts()" class="btn btn-success" id="add_cart">加入購物車</a>
+                <a href="/order/" class="btn btn-danger" >返回商品頁</a></th>
+            </th>
+        </tr>
+    </table>
+</div>
+{% endblock %}

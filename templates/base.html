@@ -27,7 +27,8 @@
     -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #F7E5D2">
       <a class="navbar-brand" href="/">
-        <img src="../static/images/logo.png" alt="logo" width="50" >
+        <!--<img src="../static/images/logo.png" alt="logo" width="50" >-->
+        <img src="https://img.onl/RAtjS8" alt="logo" width="50" >
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,7 +52,7 @@
             <a class="nav-link" href="/login/">LOGIN <span class="sr-only"></span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/cart/cart/">CART <span class="sr-only"></span></a>
+            <a class="nav-link" href="/cart/">CART <span class="sr-only"></span></a>
           </li>
         </ul>
       </div>
@@ -65,30 +66,39 @@
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+     
+     <!-- sweetalert2 -->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
-  <!-- 非同步請求函數 -->
-  <!-- Main Js File -->
-  <script src="{% static 'products/js/script.js' %}"></script>
-
-  <!-- sweetalert2 -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <script>
-      function getAjax(url, msg, reload){
-          $.get(url, function(data, status){
-              Swal.fire({
-                  icon: 'success',
-                  title: msg,
-                  showConfirmButton: false,
-                  timer: 1500
-              }).then((result) => {
-                  if (reload == 'true'){
-                      location.reload()
-                  }
+    
+    <script>
+      // 加入購物車
+      function add_carts()
+      {
+              let url = '/carts/';
+              axios.post(url, {
+                  product_id: parseInt(this.product_id),
+                  count: this.product_count
+              }, {
+                  headers: {
+                      'X-CSRFToken':getCookie('csrftoken')
+                  },
+                  responseType: 'json',
+                  withCredentials: true
               })
-        });
-      }    
-  </script>
+                  .then(response => {
+                      if (response.data.code == '0') {
+                          alert('添加購物車成功');
+                          this.cart_total_count += this.product_count;
+                      } else { // 參數錯誤
+                          alert(response.data.errmsg);
+                      }
+                  })
+                  .catch(error => {
+                      console.log(error.response);
+                  })
+      }</script>
 
 </body>
 <br>
@@ -97,7 +107,5 @@
 <footer class="py-5" style="background-color: #F7E5D2"; >
   <p class="text-center text-muted"><strong>Copyright © 2023 國立臺北教育大學 版權所有</strong></p>
 </footer>
-
-
 
 </html>

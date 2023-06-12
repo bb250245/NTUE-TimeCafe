@@ -6,31 +6,38 @@
 <br>
 <div align="center">
     <font face="Playfair Display Bold" size="7">ONLINE ORDER.</font>
-</div>
+    <br>
 <br>
  <div class="card-columns">
  {% for product in product %}
  <div class="card">
  <div class="card-body">
 
- <h5 class="card-title">{{ product.title }}</h5>
- <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+    
+    <a href="{% url 'detail' product.slug %}"><img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap"></a>
  <br><br>
- <p class="card-text">{{ product.description | truncatechars:100 }}</p>
+ <h4 class="card-title"><a href="{% url 'detail' product.slug %}" style="color:#ff7b00;">{{ product.title }}</a></h4>
  售價:{{ product.price }}元 <br>
- 
+</div>
+
+
+<!--<a onclick="add_carts()" class="btn btn-outline-secondary" id="add_cart">加入購物車</a>-->
+
  <!--
  <a href="/admin/products/products/{{ product.id }}/change/" class="btn btn-outline-secondary">Edit</a>
  <a href="/admin/products/products/{{ product.id }}/delete/" class="btn btn-outline-secondary">Delete</a>
 -->
 
- <hr>
 
+<!--
+   <hr>  
  category:<strong>{{ product.category }}</strong> <br>
  tag:<strong>{{ product.tag}}</strong><br>
  {% for t_product in product.tag.all %}
  <a href="#" class="card-link">{{ t_product }}</a><br>
  {% endfor %}
+-->
+ 
  </div>
  </div>
  {% endfor %}
