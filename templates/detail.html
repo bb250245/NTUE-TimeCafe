@@ -9,7 +9,7 @@
     <br><hr><br>
     <table width="80%">
         <tr>
-            <th width="50%">
+            <th width="50%" colspan="2">
                 <div class="card-body">
                     <h3 class="card-title" style="color:#ff7b00;">{{ product.title }}</h3>
                     <div align="justify">
@@ -22,12 +22,12 @@
         </tr>
         <tr>
             <th>
-                <div class="card-body">售價：120元</th></tr>
-        <tr>
+                <div class="card-body">售價：{{ product.price }}元
+            </th>
             <th>
-                <div class="card-body">
-                <a onclick="add_carts()" class="btn btn-success" id="add_cart">加入購物車</a>
-                <a href="/order/" class="btn btn-danger" >返回商品頁</a></th>
+                <div class="card-body" align="right">
+                <a onclick="addcart()" class="btn btn-success" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="已加入購物車！">加入購物車</button>
+                <a href="/order/" class="btn btn-danger" >返回商品頁</a>
             </th>
         </tr>
     </table>

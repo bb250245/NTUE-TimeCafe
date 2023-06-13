@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}cart{% endblock %}
 {% block content %}
 <br>
@@ -8,86 +9,51 @@
 <div align="center">
   <font face="Playfair Display Bold" size="7">CART.</font>
 </div>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th class="text-center">Price</th>
-      <th class="text-center">Total</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    {% load static %}
-    {% for item in cart %}
-    {% with product=item.product %}
-    <tr>
-      <td class="col-sm-8 col-md-6">
-        <div class="media">
-          <a class="thumbnail pull-left" href="{{ product.get_absolute_url }}">
-            <img class="media-object" src="{% if product.image %}{{ product.image.url }}
-                                                  {% else %}{% static " img/no_image.png" %}{% endif %}"
-              style="width: 72px; height: 72px;">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
-            <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
-          </div>
-        </div>
-      </td>
-      <td class="col-sm-1 col-md-1" style="text-align: center">
-        <form action="{% url " cart:cart_add" product.id %}" method="post">
-          {% csrf_token %}
+<br>
 
-          <button type="submit" class="btn btn-success btn-product">
-            Update
-          </button>
-
-        </form>
-      </td>
-
-      <td class="col-sm-1 col-md-1 text-center"><strong>${{ item.price }}</strong></td>
-      <td class="col-sm-1 col-md-1 text-center"><strong>${{ item.total_price }}</strong></td>
-
-      <td class="col-sm-1 col-md-1">
-        <a href="{% url " cart:cart_remove" product.id %}" class="btn btn-danger">
-          <i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Remove
-        </a>
-      </td>
-    </tr>
+<!-- Main Menu Section -->
+<div align="center">
+  <form method="post">
+    {% csrf_token %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="">Item Name</th>
+          <th class="">Item Price</th>
+          <th class="">Quatity</th>
+          <th class="">Total Price</th>
+          <th class="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product_id, product in product_dict.items %}
+        <tr class="">
+          <td class="" valign="middle">
+            <div class="product-info">
+              {% if product.product.product_image_set.all %}
+              {% if product.product.product_image_set.all.0.image %}
+              <img width="80" src="{{ product.product.product_image_set.all.0.image.url }}" alt="" />
+              {% endif %}
+              {% endif %}
+              <img src="{{ product.product.image.url }}" width="50" href="">
+              <a href="" style="color:#ff7b00;">{{ product.product.title }}</a>
+            </div>
+          </td>
+          <td class="" valign="middle">${{ product.product.price }}</td>
+          <td class="" valign="middle">
+            {{ product.count }}
+          </td>
+          <td class="" valign="middle">${% widthratio product.product.price 1 product.count %}</td>
+          <td class="" valign="middle">
+            <button onclick="deletecart()" class="btn btn-outline-danger">Remove</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="checkout.html" class="btn btn-outline-dark">Checkout</a>
+  </form>
+</div>
 
 
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>
-        <h3>Total</h3>
-      </td>
-      <td class="text-right">
-        <h3><strong>${{ cart.get_total_price }}</strong></h3>
-      </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>
-        <a href="{% url " shop:product_list" %}" class="btn btn-default">
-          Continue Shopping <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-        </a>
-      </td>
-      <td>
-        <a href="{% url " orders:order_create" %}" class="btn btn-default">Checkout <i class="glyphicon glyphicon-play"
-            aria-hidden="true"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-{% endwith %}
-{% endfor %}
-{% endblock %}
+{% endblock content %}

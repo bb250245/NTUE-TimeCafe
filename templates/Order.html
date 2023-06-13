@@ -8,8 +8,9 @@
     <font face="Playfair Display Bold" size="7">ONLINE ORDER.</font>
     <br>
 <br>
- <div class="card-columns">
+<div class="card-columns">
  {% for product in product %}
+
  <div class="card">
  <div class="card-body">
 
@@ -18,7 +19,6 @@
  <br><br>
  <h4 class="card-title"><a href="{% url 'detail' product.slug %}" style="color:#ff7b00;">{{ product.title }}</a></h4>
  售價:{{ product.price }}元 <br>
-</div>
 
 
 <!--<a onclick="add_carts()" class="btn btn-outline-secondary" id="add_cart">加入購物車</a>-->
@@ -37,10 +37,11 @@
  <a href="#" class="card-link">{{ t_product }}</a><br>
  {% endfor %}
 -->
- 
  </div>
  </div>
  {% endfor %}
- </div>
 
+
+</div>
+</div>
 {% endblock %}

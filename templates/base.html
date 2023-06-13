@@ -1,21 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>TIME CAFE 時光咖啡</title>
+  <title>TIME CAFE 時光咖啡</title>
 </head>
 
 <body>
-    <!--
+  <!--
     <div id="sidebar">
         {% block sidebar %}
         <ul>
@@ -25,86 +26,92 @@
         {% endblock %}
     </div>
     -->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #F7E5D2">
-      <a class="navbar-brand" href="/">
-        <!--<img src="../static/images/logo.png" alt="logo" width="50" >-->
-        <img src="https://img.onl/RAtjS8" alt="logo" width="50" >
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #F7E5D2">
+    <a class="navbar-brand" href="/">
+      <img src="../static/images/logo.png" alt="logo" width="50" >
+      <!--<img src="https://img.onl/RAtjS8" alt="logo" width="50">-->
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse justify-content-lg-end" id="navbarsExampleDefault">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-              <a class="nav-link" href="/">HOME <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/menu/">MENU <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/order/">ONLINE ORDER <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/aboutUs/">ABOUT US <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login/">LOGIN <span class="sr-only"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cart/">CART <span class="sr-only"></span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main role="main" class="container">
-    <div id="content">
-        {% block content %}{% endblock %}
+    <div class="collapse navbar-collapse justify-content-lg-end" id="navbarsExampleDefault">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">HOME <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/menu/">MENU <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/order/">ONLINE ORDER <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/aboutUs/">ABOUT US <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login/">LOGIN <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart/cart/">CART <span class="sr-only"></span></a>
+        </li>
+      </ul>
     </div>
-    </main><!-- /.container -->
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-     
-     <!-- sweetalert2 -->
-     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+  </nav>
 
-    
-    <script>
-      // 加入購物車
-      function add_carts()
-      {
-              let url = '/carts/';
-              axios.post(url, {
-                  product_id: parseInt(this.product_id),
-                  count: this.product_count
-              }, {
-                  headers: {
-                      'X-CSRFToken':getCookie('csrftoken')
-                  },
-                  responseType: 'json',
-                  withCredentials: true
-              })
-                  .then(response => {
-                      if (response.data.code == '0') {
-                          alert('添加購物車成功');
-                          this.cart_total_count += this.product_count;
-                      } else { // 參數錯誤
-                          alert(response.data.errmsg);
-                      }
-                  })
-                  .catch(error => {
-                      console.log(error.response);
-                  })
-      }</script>
+  <main role="main" class="container">
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </main><!-- /.container -->
+  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <!-- 購物車 -->
+  <script>
+    // 加入購物車
+    function addcart() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/cart/addcart/{{ product.id }}/", true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = xhr.responseText;
+          console.log(response);
+        }
+      };
+      xhr.send();
+    }
+
+    // 從購物車中刪除
+    function deletecart() {
+      fetch("/cart/deletecart/{{ product.id }}/")
+        .then(function (response) {
+          if (response.ok) {
+            return response.text();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .catch(function (error) {
+          console.log("Error:", error);
+        });
+    }
+  </script>
 
 </body>
 <br>
 <br>
 <br>
-<footer class="py-5" style="background-color: #F7E5D2"; >
+<footer class="py-5" style="background-color: #F7E5D2" ;>
   <p class="text-center text-muted"><strong>Copyright © 2023 國立臺北教育大學 版權所有</strong></p>
 </footer>
 

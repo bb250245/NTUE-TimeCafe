@@ -1,38 +1,74 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
-
+import base64
+import pickle
+from django.http import JsonResponse
+from django.views.generic import View, TemplateView
 from product.models import Product
-from .cart import Cart
-from .forms import CartAddProductForm
+from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect,HttpResponse
 
+class AddCartView(View):
+    def get(self, request, *args, **kwargs):
+        product_id = self.kwargs.get('product_id', '')
+        cart_str = request.COOKIES.get('cart', '')
+        if product_id:
+            if cart_str:
+                cart_bytes = cart_str.encode()
+                cart_bytes = base64.b64decode(cart_bytes)
+                cart_dict = pickle.loads(cart_bytes)
+            else:
+                cart_dict = {}
+            if product_id in cart_dict:
+                cart_dict[product_id]['count'] += 1
+            else:
+                cart_dict[product_id] = {
+                    'count': 1,
+                }
+            cart_str = base64.b64encode(pickle.dumps(cart_dict)).decode()
+        context = {}
+        context["status"] = 200
+        response = JsonResponse(context)
+        response.set_cookie("cart", cart_str)
+        return response
+    
+class DeleteCartView(View):
+    def get(self, request, *args, **kwargs):
+        product_id = self.kwargs.get('product_id', '')
+        cart_str = request.COOKIES.get('cart', '')
+        if product_id:
+            if cart_str:
+                cart_bytes = cart_str.encode()
+                cart_bytes = base64.b64decode(cart_bytes)
+                cart_dict = pickle.loads(cart_bytes)
+            else:
+                cart_dict = {}
+            if product_id in cart_dict:
+                del cart_dict[product_id]
+            cart_str = base64.b64encode(pickle.dumps(cart_dict)).decode()
+        context = {}
+        context["status"] = 200
+        response = JsonResponse(context)
+        response.set_cookie("cart", cart_str)
+        return response
+        
+class CartView(TemplateView):
+    template_name = "cart.html"
 
-@require_POST
-def cart_add(request, product_id):
-    cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
-    form = CartAddProductForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        cart.add(product=product,
-                 quantity=cd['quantity'],
-                 update_quantity=cd['update'])
-    return redirect('cart:cart_detail')
-
-
-def cart_remove(request, product_id):
-    cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
-    cart.remove(product)
-    return redirect('cart:cart_detail')
-
-
-def cart_detail(request):
-    cart = Cart(request)
-    # 使用 for in 的時候，他會開始迭代，並且呼叫 `__iter__`
-    for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(
-            initial={
-                'quantity': item['quantity'],
-                'update': True
-            })
-    return render(request, 'cart.html', {'cart': cart})
+    def get(self, request, *args, **kwargs):
+        cart_str = request.COOKIES.get('cart', '')
+        product_dict = {}
+        if cart_str:
+            cart_bytes = cart_str.encode()
+            cart_bytes = base64.b64decode(cart_bytes)
+            cart_dict = pickle.loads(cart_bytes)
+            product_dict = cart_dict.copy()
+            for product_id in cart_dict:
+                if product := Product.objects.filter(id=product_id):
+                    product_dict[product_id]["product"] = product.first()
+                else:
+                    del product_dict[product_id]
+        context = self.get_context_data(**kwargs)
+        context["product_dict"] = product_dict
+        return self.render_to_response(context)
+    
+def cartredirect(request):
+    return redirect('/cart/cart/')
